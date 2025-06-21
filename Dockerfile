@@ -8,11 +8,11 @@ RUN apt-get update && apt-get install -y \
     git curl zip unzip libonig-dev libxml2-dev libzip-dev \
     && docker-php-ext-install pdo pdo_mysql zip
 
-# ✅ Install Node.js + npm manually
+# ✅ Install Node.js + npm
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
-# ✅ Verify npm installed
+# ✅ Verify install
 RUN node -v && npm -v
 
 # Install Composer
@@ -21,14 +21,13 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy app code
 COPY . .
 
-# Copy .env file
-# Copy .env and create placeholder for APP_KEY
+# ✅ Copy .env and prepare APP_KEY
 RUN cp .env.example .env && echo "APP_KEY=" >> .env
 
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# ✅ Install Node dependencies & build Vite assets
+# ✅ Build Vite assets
 RUN npm install
 RUN npm run build
 
@@ -41,6 +40,5 @@ RUN chown -R www-data:www-data .
 # Expose port
 EXPOSE 8000
 
-# ✅ Serve app using built-in PHP server (to serve static assets from /public)
+# ✅ Serve app from /public using PHP built-in server
 CMD php -S 0.0.0.0:8000 -t public router.php
-
