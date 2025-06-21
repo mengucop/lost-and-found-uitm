@@ -22,7 +22,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # ✅ Copy .env and prepare APP_KEY
-RUN cp .env.example .env && echo "APP_KEY=" >> .env
+RUN cp .env.example .env && \
+    sed -i '/^APP_KEY=/d' .env && \
+    echo "APP_KEY=" >> .env && \
+    echo "APP_DEBUG=true" >> .env
+
 
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
