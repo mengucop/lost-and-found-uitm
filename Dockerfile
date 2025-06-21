@@ -41,4 +41,5 @@ RUN chown -R www-data:www-data .
 EXPOSE 8000
 
 # ✅ Serve app using built-in PHP server (to serve static assets from /public)
-CMD php -S 0.0.0.0:8000 -t public
+CMD php -S 0.0.0.0:8000 -t public router.php
+
