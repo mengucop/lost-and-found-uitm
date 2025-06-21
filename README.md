@@ -1,4 +1,4 @@
-# 🎓 Lost & Found Management System – UiTM FYP
+# 🎓 Lost & Found System – UiTM FYP
 
 This is a Laravel-based web application designed to help students and staff at UiTM report, track, and recover lost or found items on campus. The system provides a user-friendly platform with features tailored to ensure transparency, ethical posting, and efficient item management.
 
