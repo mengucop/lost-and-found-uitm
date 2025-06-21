@@ -1,42 +1,43 @@
-FROM php:8.2-fpm
+FROM node:18-alpine AS node_modules
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
 
-# Set working directory
+FROM php:8.2-fpm
 WORKDIR /var/www/html
 
-# Install system dependencies + Node.js
+# Install PHP extensions
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libonig-dev libxml2-dev libzip-dev \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
     && docker-php-ext-install pdo pdo_mysql zip
 
-# Install Composer
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy project files
+# Copy all code
 COPY . .
 
-# Copy .env (needed for artisan commands)
+# Copy Node modules
+COPY --from=node_modules /app/node_modules ./node_modules
+
+# Set correct .env
 RUN cp .env.example .env
 
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Install Node packages and build front-end assets
-RUN npm install && npm run build
+# Build Vite assets
+RUN npm run build
 
-# Generate Laravel app key
+# Laravel setup
 RUN php artisan key:generate
-
-# Set file permissions
-RUN chmod -R 775 storage bootstrap/cache && \
-    chown -R www-data:www-data storage bootstrap/cache
-
-# Create symbolic link for storage (optional but common)
 RUN php artisan storage:link || true
+RUN chmod -R 775 storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache
 
-# Expose port
+# Set correct permissions
+RUN chown -R www-data:www-data .
+
 EXPOSE 8000
 
-# Serve the application
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# ✅ This line serves from public folder, allowing static Vite assets to work
+CMD php -S 0.0.0.0:8000 -t public
