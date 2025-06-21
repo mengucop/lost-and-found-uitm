@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: lost-and-found-uitm
+    env: docker
+    plan: free
+    repo: https://github.com/mengucop/lost-and-found-uitm
+    branch: main
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:l72+cip6ucq3S+1Fese8YHA9exC4TOKZ7dO/X23ZE94=
+      - key: DB_HOST
+        value: sql12.freesqldatabase.com
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: sql12786113
+      - key: DB_USERNAME
+        value: sql12786113
+      - key: DB_PASSWORD
+        value: HPtCylkPqu
