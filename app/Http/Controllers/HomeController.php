@@ -101,7 +101,7 @@ class HomeController extends Controller
             'pic'             => $filename,
             'type'            => $request->type,
             'status'          => 'Unresolved',
-            'image_labels'    => json_encode($imageLabels),
+            'image_labels'    => $imageLabels,
             'selected_label'  => null,               // newly added column stays null for now
             'latitude'        => $request->latitude,
             'longitude'       => $request->longitude,
