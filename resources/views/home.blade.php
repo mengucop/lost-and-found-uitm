@@ -1,3 +1,7 @@
+@extends('layouts')
+
+@section('content')
+
 <x-header>Homepage</x-header>
 
 <body class="bg-gradient-to-b from-gray-50 to-gray-100">
@@ -440,3 +444,5 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI0IHdwGx4iXJoj_ODuaXpJWTfNe9U5bU&callback=initMap"></script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 </body>
+
+@endsection
