@@ -268,7 +268,7 @@
   <div class="w-full absolute top-0 left-0 flex justify-between items-center p-4 z-50">
     <!-- UiTM Logo -->
     <div class="flex items-center space-x-3">
-      <img src="images/uitmlogo.png"
+      <img src="public\images\uitmlogo.png"
            alt="UiTM Logo" class="logo h-28 w-auto"/>
       <span class="text-white font-bold text-lg hidden sm:inline">UiTM Lost & Found</span>
     </div>
