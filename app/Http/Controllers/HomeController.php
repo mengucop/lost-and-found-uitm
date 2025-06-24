@@ -116,7 +116,7 @@ class HomeController extends Controller
         return redirect()
             ->route('home.index', ['username' => $username])
             ->with([
-                'image_labels' => $imageLabels,
+                'image_labels' => json_encode($imageLabels),
                 'last_item_id' => $newItemId,
             ]);
     }
