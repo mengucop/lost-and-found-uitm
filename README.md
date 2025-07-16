@@ -20,7 +20,7 @@ This is a Laravel-based web application designed to help students and staff at U
 - **Backend**: Laravel  
 - **Frontend**: Blade, Tailwind CSS, Leaflet.js (for maps)  
 - **Database**: MySQL  
-- **Environment**: Laragon (Windows)
+- **Environment**: Laragon (Windows), Google Maps API, Google Vision API
 
 ---
 
